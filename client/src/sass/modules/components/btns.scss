@@ -1,0 +1,53 @@
+.btn {
+  padding: 10px 0 10px 0;
+  border: none;
+  border-radius: 6px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &--top-note {
+    background: #263032;
+    padding-left: 16px;
+    padding-right: 13px;
+    padding-bottom: 8px;
+  }
+
+  &--login {
+    color: #fff;
+    background: #516769;
+    padding-left: 32px;
+    padding-right: 13px;
+    margin-right: 38px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    &:last-child {
+      margin-right: 0;
+      padding-right: 20px;
+    }
+  }
+
+  &--logout {
+    color: #fff;
+    background: #516769;
+    padding-left: 32px;
+    padding-right: 13px;
+    margin-right: 38px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+  }
+
+  &-edit {
+    padding: 0;
+    background-color: #fff;
+    margin-right: 10px;
+  }
+
+  &-remove {
+    padding: 0;
+    background-color: #fff;
+  }
+}
