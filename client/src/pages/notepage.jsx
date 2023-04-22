@@ -1,5 +1,13 @@
+import { useEffect } from "react";
 import { FilledNoteList, EmptyNoteList } from "../components/NoteList";
-export const Notes = () => {
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+export function NotePage() {
+
+  const {isAuth} = useSelector((store)=> store.auth)
+  const navigate = useNavigate()
+
   const note = true;
   const notes = [
     {
@@ -27,9 +35,18 @@ export const Notes = () => {
       status: true,
     },
   ];
-    return (
-      <div>
-        {note ? FilledNoteList(notes) : <EmptyNoteList/>}
-      </div>
-    );
+
+  useEffect(()=>{
+    const redirect = ()=> {
+      if (!isAuth) {
+      navigate('/')
+    }
+    }
+    redirect()
+  }, [isAuth, navigate])
+  return (
+    <div>
+      {note ? FilledNoteList(notes) : <EmptyNoteList />}
+    </div>
+  );
 }

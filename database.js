@@ -4,7 +4,7 @@ const pool = mysql
   .createPool({
     host: "localhost",
     user: "root",
-    database: "тnotes_project",
+    database: "notes_project",
     password: "",
   })
   .promise();
@@ -25,14 +25,15 @@ export async function findUser(login) {
   }
 }
 
-export async function createUser(login, password) {
+export async function createUser(login, password, email) {
 try {
    const [result] = await pool.query(
      `
-  INSERT INTO User (user_id, name, password)
-  VALUES (?, ?, ?)`,
-     [null, login, password]
+  INSERT INTO User (user_id, name, password, email)
+  VALUES (?, ?, ?, ?)`,
+     [null, login, password, email]
    );
+   console.log(result);
    if (result) {
      return {
        ok: true,

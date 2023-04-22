@@ -1,5 +1,5 @@
 import  img   from '../images/index_page/unAuth.jpg'
-export const Index = () => {
+export const IndexPage = () => {
   return (
       <div className="main-page">
         <div className="main-page-text">
