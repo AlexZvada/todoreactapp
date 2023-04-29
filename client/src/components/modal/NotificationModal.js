@@ -10,10 +10,18 @@ export const NotificationModal = ({open, onClose}) => {
           isOpen={open}
           onRequestClose={onClose}
           style={customStyles}
-          contentLabel="Example Modal"
+          contentLabel="Notification Modal"
         >
-          <h1>To start work please autorize!</h1>
-          <button onClick={onClose}>Ok</button>
+          <div className="notification-modal">
+            <h1 className="notification-title">
+              To start work please autorize!
+            </h1>
+            <div className="notification-bnt-wrapper">
+              <button onClick={onClose} className="btn btn-apply end">
+                Ok
+              </button>
+            </div>
+          </div>
         </Modal>
       </>
     );

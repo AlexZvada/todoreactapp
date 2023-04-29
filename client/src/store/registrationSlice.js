@@ -4,7 +4,7 @@ const initialState = {
   status: false,
   message: "",
   error: {
-    username:null
+      message: null
   }
 };
 
@@ -38,9 +38,10 @@ const registrationSlice = createSlice({
       state.message = action.payload;
     });
     builder.addCase(fetchRegistration.rejected, (state, action) => {
-      state.error.username = action.error.message;
+      state.error.message = action.error.message;
     });
   },
 });
 
 export default registrationSlice.reducer;
+

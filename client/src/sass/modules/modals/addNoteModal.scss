@@ -1,0 +1,36 @@
+.modal {
+  &-btns-wrapper {
+    display: flex;
+    justify-content: end;
+  }
+
+  &-add-note {
+    width: 600px;
+    height: 380px;
+    padding: 10px;
+    position: relative;
+  }
+}
+
+.form-add-note-close {
+  position: absolute;
+  left: 575px;
+  top: 10px;
+}
+
+textarea {
+  width: 96.4%;
+  height: 230px;
+  margin-bottom: 10px;
+}
+
+.form-edit-close {
+      width: 14px;
+      height: 14px;
+      position: absolute;
+      left: 585px;
+      top: 12px;
+      &:hover {
+        cursor: pointer;
+      }
+}

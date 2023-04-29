@@ -9,6 +9,8 @@ import {
   removeNote,
   removeAllNotes,
   findUser,
+  toggleStatus,
+  getNote
 } from "./database.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -34,12 +36,24 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.json());
 
+app.get('/verify', async(req, res)=> {
+    try {
+      const token = req.headers.authorization.split(" ")[1];
+      const { userId } = getToken(token);
+      if (userId) {
+        res.sendStatus(200);
+      } else res.sendStatus(404);
+    } catch (error) {
+      
+    }
+})
 app.post("/login", async (req, res) => {
   try {
     const { login, password } = req.body;
     const user = await findUser(login);
+
     if (!user) {
-      res.status(400).json({ name: `User does not exist` });
+      res.status(400).json(`User does not exist`);
     }
     if (user) {
       const validPassword = bcrypt.compareSync(password, user.password);
@@ -48,7 +62,7 @@ app.post("/login", async (req, res) => {
         res.status(200).json(token);
       }
       if (!validPassword) {
-        res.status(400).json({ password: "Invalid password" });
+        res.status(400).json( "Invalid password");
       }
     }
   } catch (error) {
@@ -80,7 +94,7 @@ app.get("/notes", async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const notes = await getNotes(userId);
-    res.json(notes);
+    res.status(200).json(notes);
   } catch (error) {
     res.status(500).json({ server: "connection error" });
   }
@@ -89,10 +103,13 @@ app.get("/notes", async (req, res) => {
 app.post("/note", async (req, res) => {
   try {
     const token = req.headers.authorization.split(" ")[1];
-    const { text } = req.body;
+    const { title, text } = req.body;
     const { userId } = getToken(token);
-    const note = await createNote(text, userId);
-    res.json(note);
+    const note = await createNote(title, text, userId);
+    console.log(note);
+    if(note){
+      res.status(201).json(note);
+    }
   } catch (error) {
     res.status(500).json({ server: "connection error" });
   }
@@ -100,10 +117,11 @@ app.post("/note", async (req, res) => {
 
 app.put("/note", async (req, res) => {
   try {
-    const { text, id, status } = req.body;
+    const { title, text, id } = req.body;
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
-    const editedNote = await editNote(text, id, userId, status);
+    console.log(title, text, id);
+    const editedNote = await editNote(title, text, id, userId);
     if (editedNote.status === 1) {
       editedNote.status = true;
     } else editedNote.status = false;
@@ -112,12 +130,35 @@ app.put("/note", async (req, res) => {
     res.status(500).json({ server: "connection error" });
   }
 });
+app.put("/note-status", async (req, res) => {
+  try {
+    const { id } = req.body;
+    const token = req.headers.authorization.split(" ")[1];
+    const { userId } = getToken(token);
+    const note = await getNote(id, userId);
+    
+    if (note.status === 1) {
+      toggleStatus(id, userId, 0)
+    } else toggleStatus(id, userId, 1);
+
+    const editedNote = await getNote(id, userId);
+    if (editedNote.status === 1){
+      editedNote.status = true;
+    }
+    else editedNote.status = false;
+    res.json(editedNote);
+  } catch (error) {
+    res.status(500).json({ server: "connection error" });
+  }
+});
+
 app.delete("/note", async (req, res) => {
   try {
     const { id } = req.body;
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const result = await removeNote(id, userId);
+    console.log(result);
     if (!result) {
       res.send("something wrong");
     }

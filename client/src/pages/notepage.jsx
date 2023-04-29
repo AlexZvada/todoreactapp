@@ -1,52 +1,27 @@
 import { useEffect } from "react";
-import { FilledNoteList, EmptyNoteList } from "../components/NoteList";
-import { useSelector } from "react-redux";
+import { NoteList } from "../components/NoteList";
+import {  useSelector, useDispatch} from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { fetchNotes } from "../store/notesSlice";
+
+
 
 export function NotePage() {
-
-  const {isAuth} = useSelector((store)=> store.auth)
-  const navigate = useNavigate()
-
-  const note = true;
-  const notes = [
-    {
-      id: 1,
-      title: "some title",
-      text: "some text",
-      status: false,
-    },
-    {
-      id: 2,
-      title: "some title",
-      text: "some text",
-      status: true,
-    },
-    {
-      id: 3,
-      title: "some title",
-      text: "some text",
-      status: true,
-    },
-    {
-      id: 4,
-      title: "some title",
-      text: "some text",
-      status: true,
-    },
-  ];
-
-  useEffect(()=>{
-    const redirect = ()=> {
-      if (!isAuth) {
-      navigate('/')
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((store) => store.auth);
+  
+  useEffect(() => {
+    if (!isAuth) {
+      navigate("/");
     }
-    }
-    redirect()
-  }, [isAuth, navigate])
+  }, [isAuth, navigate]);
+  useEffect(() => {
+    dispatch(fetchNotes());
+  }, [dispatch]);
   return (
     <div>
-      {note ? FilledNoteList(notes) : <EmptyNoteList />}
+        <NoteList/>
     </div>
   );
 }

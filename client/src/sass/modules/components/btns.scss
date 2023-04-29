@@ -2,6 +2,27 @@
   padding: 10px 0 10px 0;
   border: none;
   border-radius: 6px;
+  &:hover{
+    cursor: pointer;
+  }
+
+  &-apply {
+    color: #fff;
+    background: #516769;
+    font-size: 16px;
+    padding: 11px 31px;
+    border-radius: 30px;
+    margin-left: 15px;
+  }
+
+  &-reject {
+    background: #fff;
+    color: #516769;
+    border: 1px solid #516769;
+    font-size: 16px;
+    padding: 11px 31px;
+    border-radius: 30px;
+  }
 
   &:hover {
     cursor: pointer;
@@ -50,4 +71,13 @@
     padding: 0;
     background-color: #fff;
   }
+}
+
+.form-btn {
+  margin-top: 10px;
+  width: 100%;
+  height: 43px;
+  color: #fff;
+  background: #516769;
+  font-size: 20px;
 }

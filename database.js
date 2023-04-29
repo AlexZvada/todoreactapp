@@ -21,30 +21,30 @@ export async function findUser(login) {
     );
     return row[0];
   } catch (error) {
-    return error
+    return null;
   }
 }
 
 export async function createUser(login, password, email) {
-try {
-   const [result] = await pool.query(
-     `
+  try {
+    const [result] = await pool.query(
+      `
   INSERT INTO User (user_id, name, password, email)
   VALUES (?, ?, ?, ?)`,
-     [null, login, password, email]
-   );
-   console.log(result);
-   if (result) {
-     return {
-       ok: true,
-     };
-   }
-} catch (error) {
-  return error
-}
+      [null, login, password, email]
+    );
+    console.log(result);
+    if (result) {
+      return {
+        ok: true,
+      };
+    }
+  } catch (error) {
+    return null;
+  }
 }
 
-async function getNote(id, userId) {
+export async function getNote(id, userId) {
   try {
     const [row] = await pool.query(
       `
@@ -56,8 +56,25 @@ async function getNote(id, userId) {
     );
     return row[0];
   } catch (error) {
-    return error
+    return null;
   }
+}
+
+export async function toggleStatus(id, userId, status) {
+  try {
+    const [result] = await pool.query(
+      `
+      UPDATE notes
+    SET status = ?
+    WHERE id = ? AND user_id = ?
+      `,
+      [status, id, userId]
+    );
+    if (result) {
+      const note = await getNote(id, userId);
+      return note;
+    }
+  } catch (error) {}
 }
 
 export async function getNotes(userId) {
@@ -65,42 +82,44 @@ export async function getNotes(userId) {
     const [row] = await pool.query(
       `
     SELECT * 
-    from todos
+    from notes
     WHERE user_id = ?
   `,
       [userId]
     );
     return row || null;
   } catch (error) {
-    return error
+    return null;
   }
 }
 
-export async function createNote(text, userId) {
+export async function createNote(title, text, userId) {
   try {
     const [result] = await pool.query(
       `
-  INSERT INTO notes (id, text, status, user_id)
-  VALUES (?, ?, ?, ?)`,
-      [null, text, false, userId]
+  INSERT INTO notes (id, title, text, status, user_id)
+  VALUES (?, ?, ?, ?, ?)`,
+      [null, title, text, false, userId]
     );
     const note = await getNote(result.insertId, userId);
+    console.log(result);
     return note;
   } catch (error) {
-    return error;
+    return null;
   }
 }
 
-export async function editNote(text, id, userId, status = 0) {
+export async function editNote(title, text, id, userId, status = 0) {
   try {
     const [result] = await pool.query(
       `
     UPDATE notes
-    SET text = ?,
+    SET title = ?,
+        text = ?,
         status = ?
     WHERE id = ? AND user_id = ?
   `,
-      [text, status, id, userId]
+      [title, text, status, id, userId]
     );
 
     if (result) {
@@ -108,7 +127,7 @@ export async function editNote(text, id, userId, status = 0) {
       return note;
     }
   } catch (error) {
-    return error
+    return null;
   }
 }
 
@@ -127,7 +146,7 @@ export async function removeNote(id, userId) {
       };
     } else return null;
   } catch (error) {
-    return error
+    return null;
   }
 }
 
@@ -142,6 +161,6 @@ export async function removeAllNotes(userId) {
     );
     return res;
   } catch (error) {
-    return error
+    return error;
   }
 }
