@@ -14,13 +14,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeLogin, fetchVerify } from "./store/authSlice";
 import { clearLoginInput, clearLoginError } from "./store/loginInputSlice";
 import { closeSingIn } from "./store/singInModalSlice";
-import { clearInput, clearError} from './store/singInFormInputSlice'
-import {  openNoteModal, closeNoteModal } from "./store/noteModalSlice";
+import { clearInput, clearError } from "./store/singInFormInputSlice";
+import { openNoteModal, closeNoteModal } from "./store/noteModalSlice";
 import {
   openNotification,
   closeNotification,
 } from "./store/notificationModalSlice";
-import { closeEditNote} from './store/editNoteModalSlice'
+import { closeEditNote } from "./store/editNoteModalSlice";
 import { useEffect } from "react";
 
 function App() {
@@ -30,8 +30,7 @@ function App() {
   const singInState = useSelector((store) => store.singIn);
   const noteModalState = useSelector((store) => store.noteModal);
   const notificationState = useSelector((store) => store.notificationModal);
-  const editModalState = useSelector(store=> store.editModal)
-
+  const editModalState = useSelector((store) => store.editModal);
 
   const handelOpenNoteModal = () => {
     if (loginState.isAuth) {
@@ -40,33 +39,33 @@ function App() {
       dispatch(openNotification());
     }
   };
-  const handleCloseEditModal = ()=>{
-    dispatch(closeEditNote())
-  }
+  const handleCloseEditModal = () => {
+    dispatch(closeEditNote());
+  };
 
-  const handleCloseLogin = ()=> {
-    dispatch(closeLogin())
+  const handleCloseLogin = () => {
+    dispatch(closeLogin());
     dispatch(clearLoginInput());
     dispatch(clearLoginError());
-  }
+  };
   const handleCloseSingIn = () => {
     dispatch(closeSingIn());
     dispatch(clearInput());
-    dispatch(clearError())
+    dispatch(clearError());
   };
   const handleCloseNote = () => {
     dispatch(closeNoteModal());
   };
 
   useEffect(() => {
-      dispatch(fetchVerify());
+    dispatch(fetchVerify());
   }, [dispatch]);
 
-  useEffect(()=>{
+  useEffect(() => {
     if (loginState.isAuth) {
-      navigate('/notes')
+      navigate("/notes");
     }
-  },[loginState, navigate])
+  }, [loginState, navigate]);
   return (
     <div className="App">
       <Header openNote={handelOpenNoteModal} />

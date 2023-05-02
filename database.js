@@ -33,7 +33,6 @@ export async function createUser(login, password, email) {
   VALUES (?, ?, ?, ?)`,
       [null, login, password, email]
     );
-    console.log(result);
     if (result) {
       return {
         ok: true,
@@ -102,7 +101,6 @@ export async function createNote(title, text, userId) {
       [null, title, text, false, userId]
     );
     const note = await getNote(result.insertId, userId);
-    console.log(result);
     return note;
   } catch (error) {
     return null;

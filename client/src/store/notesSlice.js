@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   isNotes: false,
   notes: [],
+  toShow: [],
   error: null,
 };
 
@@ -61,20 +62,23 @@ export const fetchEditNote = createAsyncThunk(
   }
 );
 
-export const fetchStatus = createAsyncThunk("status/fetchStatus", async (id)=> {
-  const res = await fetch("http://localhost:8080/note-status", {
-    method: "PUt",
-    headers: {
-      "Content-type": "application/json",
-      Authorization: `Bearer ${sessionStorage.getItem("user")}`,
-    },
-    body: JSON.stringify({id}),
-  });
-  if (res.ok) {
-    const note = await res.json();
-    return note;
+export const fetchStatus = createAsyncThunk(
+  "status/fetchStatus",
+  async (id) => {
+    const res = await fetch("http://localhost:8080/note-status", {
+      method: "PUt",
+      headers: {
+        "Content-type": "application/json",
+        Authorization: `Bearer ${sessionStorage.getItem("user")}`,
+      },
+      body: JSON.stringify({ id }),
+    });
+    if (res.ok) {
+      const note = await res.json();
+      return note;
+    }
   }
-});
+);
 
 export const fetchDeleteNote = createAsyncThunk(
   "note/fetchDeletetNote",
@@ -96,12 +100,23 @@ export const fetchDeleteNote = createAsyncThunk(
 export const notesSlice = createSlice({
   name: "notes",
   initialState,
-  reducers: {},
+  reducers: {
+    all: (state) => {
+      state.toShow = state.notes;
+    },
+    done: (state) => {
+      state.toShow = state.notes.filter((note) => note.status);
+    },
+    notDone: (state) => {
+      state.toShow = state.notes.filter((note) => !note.status);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchNotes.fulfilled, (state, action) => {
       if (action.payload) {
         state.isNotes = true;
         state.notes = action.payload;
+        state.toShow = state.notes;
       }
     });
     builder.addCase(fetchNotes.rejected, (state, action) => {
@@ -111,25 +126,31 @@ export const notesSlice = createSlice({
     builder.addCase(fetchAddNote.fulfilled, (state, action) => {
       state.isNotes = true;
       state.notes.push(action.payload);
+      state.toShow = state.notes
     });
     builder.addCase(fetchEditNote.fulfilled, (state, action) => {
       const noteId = action.payload.id;
       const listId = state.notes.findIndex((note) => note.id === noteId);
       state.notes[listId] = action.payload;
+      state.toShow = state.notes;
     });
     builder.addCase(fetchDeleteNote.fulfilled, (state, action) => {
       const noteId = Number(action.payload);
       state.notes = state.notes.filter((note) => note.id !== noteId);
       if (!state.notes[0]) {
-        state.isNotes = false
+        state.isNotes = false;
       }
+      state.toShow = state.notes;
     });
-    builder.addCase(fetchStatus.fulfilled, (state, action)=> {
+    builder.addCase(fetchStatus.fulfilled, (state, action) => {
       const noteId = action.payload.id;
       const listId = state.notes.findIndex((note) => note.id === noteId);
       state.notes[listId] = action.payload;
+      state.toShow = state.notes;
     });
   },
 });
+
+export const { all, done, notDone } = notesSlice.actions;
 
 export default notesSlice.reducer;

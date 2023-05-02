@@ -8,8 +8,9 @@ import noteBnt from "../images/btns/note-btn.svg";
 import login from "../images/btns/login.svg";
 import arrow from "../images/btns/arrow_right.svg";
 import logoutImg from "../images/btns/logout.svg";
+import { all, done, notDone } from "../store/notesSlice";
 
-export const Header = ({openNote}) => {
+export const Header = ({ openNote }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -17,8 +18,25 @@ export const Header = ({openNote}) => {
   const className = isAuth ? "auth" : "not-auth";
   const handleLogout = () => {
     dispatch(logout());
-    sessionStorage.clear()
+    sessionStorage.clear();
     navigate("/");
+  };
+
+  const handleSelectorChange = (e) => {
+    const value = e.target.value;
+    switch (value) {
+      case "all":
+        dispatch(all())
+        break;
+      case "done":
+        dispatch(done())
+        break;
+      case "not-done":
+        dispatch(notDone());
+        break;
+      default:
+        break;
+    }
   };
   return (
     <header className={`header header--${className}`}>
@@ -54,7 +72,11 @@ export const Header = ({openNote}) => {
           </div>
           {isAuth ? (
             <div className="form-wrapper">
-              <select className="note-select" name="select">
+              <select
+                className="note-select"
+                name="select"
+                onChange={handleSelectorChange}
+              >
                 <option value="all">All</option>
                 <option value="done">Done</option>
                 <option value="not-done">Not done</option>

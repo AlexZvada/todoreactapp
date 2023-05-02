@@ -1,15 +1,13 @@
 import { Button } from "./Button";
-
 import edit from "../images/btns/edit_btn.svg";
 import remove from "../images/btns/delete.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { openEditNote, setInitialValue } from "../store/editNoteModalSlice";
 import { fetchDeleteNote, fetchStatus } from "../store/notesSlice";
-import { useEffect } from "react";
 
-export const NoteList = (list) => {
+export const NoteList = () => {
   const dispatch = useDispatch();
-  const { notes, isNotes } = useSelector((store) => store.notes);
+  const { toShow , isNotes } = useSelector((store) => store.notes);
   const handleOpenEditNote = (e) => {
     const note = e.target.closest("div");
     const title = note.childNodes[0].innerText;
@@ -29,7 +27,7 @@ export const NoteList = (list) => {
   return (
     <div>
       {isNotes ? (
-        notes.map(({ id, title, text, status }) => {
+        toShow.map(({ id, title, text, status }) => {
           return (
             <div key={id} id={id} className="note">
               <p className="note-title">{title}</p>
@@ -51,8 +49,8 @@ export const NoteList = (list) => {
         })
       ) : (
         <>
-          <h1 className="empty-list--title">You don't have any tasks yet</h1>
-          <p className="empty-list--parg">
+          <h1 className="empty-list-title">You don't have any tasks yet</h1>
+          <p className="empty-list-text">
             But you can always fix it. It's never too late to start making a
             list of plans
           </p>

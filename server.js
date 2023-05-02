@@ -94,6 +94,11 @@ app.get("/notes", async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const notes = await getNotes(userId);
+    notes.forEach(note => {
+      if (note.status===0) {
+        return note.status = false
+      }else return note.status = true
+    });
     res.status(200).json(notes);
   } catch (error) {
     res.status(500).json({ server: "connection error" });
@@ -106,8 +111,10 @@ app.post("/note", async (req, res) => {
     const { title, text } = req.body;
     const { userId } = getToken(token);
     const note = await createNote(title, text, userId);
-    console.log(note);
     if(note){
+       if (note.status === 0) {
+         note.status = false;
+       } else note.status = true;
       res.status(201).json(note);
     }
   } catch (error) {
@@ -120,11 +127,10 @@ app.put("/note", async (req, res) => {
     const { title, text, id } = req.body;
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
-    console.log(title, text, id);
     const editedNote = await editNote(title, text, id, userId);
-    if (editedNote.status === 1) {
-      editedNote.status = true;
-    } else editedNote.status = false;
+    if (editedNote.status === 0) {
+      editedNote.status = false;
+    } else editedNote.status = true;
     res.json(editedNote);
   } catch (error) {
     res.status(500).json({ server: "connection error" });
@@ -136,16 +142,14 @@ app.put("/note-status", async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const note = await getNote(id, userId);
-    
-    if (note.status === 1) {
-      toggleStatus(id, userId, 0)
-    } else toggleStatus(id, userId, 1);
+    if (note.status === 0) {
+      await toggleStatus(id, userId, 1)
+    } else await toggleStatus(id, userId, 0);
 
     const editedNote = await getNote(id, userId);
-    if (editedNote.status === 1){
-      editedNote.status = true;
-    }
-    else editedNote.status = false;
+    if (editedNote.status === 0){
+      editedNote.status = false;
+    } else editedNote.status = true;
     res.json(editedNote);
   } catch (error) {
     res.status(500).json({ server: "connection error" });
@@ -158,7 +162,6 @@ app.delete("/note", async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const result = await removeNote(id, userId);
-    console.log(result);
     if (!result) {
       res.send("something wrong");
     }
