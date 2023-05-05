@@ -39,7 +39,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 app.get('/', (req, res)=>{
-  res.send("Hi there! Visit my vebsite - my-notes-reactapp.netlify.app");
+  res.json("Hi there! Visit my vebsite - my-notes-reactapp.netlify.app");
 })
 
 app.get('/verify', async(req, res)=> {
