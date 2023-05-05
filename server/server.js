@@ -30,9 +30,10 @@ const generateToken = (id) => {
 const getToken = (token) => {
   return jwt.verify(token, SECRET_KEY);
 };
+
 app.use(
   cors({
-    origin: "https://my-notes-reactapp.netlify.app",
+    origin: "https://my-notes-reactapp.netlify.app/:1",
   })
 );
 app.use(bodyParser.json());
