@@ -1,5 +1,6 @@
+import * as dotenv from "dotenv";
+dotenv.config();
 import mysql from "mysql2";
-require("dotenv").config();
 
 
 const pool = mysql

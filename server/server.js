@@ -1,3 +1,5 @@
+import * as dotenv from "dotenv";
+dotenv.config()
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -10,12 +12,10 @@ import {
   removeAllNotes,
   findUser,
   toggleStatus,
-  getNote
+  getNote,
 } from "./database.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
-require("dotenv").config();
 
 const app = express();
 
@@ -39,21 +39,19 @@ app.use(
 app.use(bodyParser.json());
 app.use(express.json());
 
-app.get('/', (req, res)=>{
+app.get("/", (req, res) => {
   res.json("Hi there! Visit my vebsite - my-notes-reactapp.netlify.app");
-})
+});
 
-app.get('/verify', async(req, res)=> {
-    try {
-      const token = req.headers.authorization.split(" ")[1];
-      const { userId } = getToken(token);
-      if (userId) {
-        res.sendStatus(200);
-      } else res.sendStatus(404);
-    } catch (error) {
-      
-    }
-})
+app.get("/verify", async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(" ")[1];
+    const { userId } = getToken(token);
+    if (userId) {
+      res.sendStatus(200);
+    } else res.sendStatus(404);
+  } catch (error) {}
+});
 app.post("/login", async (req, res) => {
   try {
     const { login, password } = req.body;
@@ -69,7 +67,7 @@ app.post("/login", async (req, res) => {
         res.status(200).json(token);
       }
       if (!validPassword) {
-        res.status(400).json( "Invalid password");
+        res.status(400).json("Invalid password");
       }
     }
   } catch (error) {
@@ -92,7 +90,7 @@ app.post("/registration", async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json("connection error" );
+    res.status(500).json("connection error");
   }
 });
 
@@ -101,10 +99,10 @@ app.get("/notes", async (req, res) => {
     const token = req.headers.authorization.split(" ")[1];
     const { userId } = getToken(token);
     const notes = await getNotes(userId);
-    notes.forEach(note => {
-      if (note.status===0) {
-        return note.status = false
-      }else return note.status = true
+    notes.forEach((note) => {
+      if (note.status === 0) {
+        return (note.status = false);
+      } else return (note.status = true);
     });
     res.status(200).json(notes);
   } catch (error) {
@@ -118,10 +116,10 @@ app.post("/note", async (req, res) => {
     const { title, text } = req.body;
     const { userId } = getToken(token);
     const note = await createNote(title, text, userId);
-    if(note){
-       if (note.status === 0) {
-         note.status = false;
-       } else note.status = true;
+    if (note) {
+      if (note.status === 0) {
+        note.status = false;
+      } else note.status = true;
       res.status(201).json(note);
     }
   } catch (error) {
@@ -150,11 +148,11 @@ app.put("/note-status", async (req, res) => {
     const { userId } = getToken(token);
     const note = await getNote(id, userId);
     if (note.status === 0) {
-      await toggleStatus(id, userId, 1)
+      await toggleStatus(id, userId, 1);
     } else await toggleStatus(id, userId, 0);
 
     const editedNote = await getNote(id, userId);
-    if (editedNote.status === 0){
+    if (editedNote.status === 0) {
       editedNote.status = false;
     } else editedNote.status = true;
     res.json(editedNote);
@@ -196,4 +194,6 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 8080, () => console.log(`server started at 8080 port`));
+app.listen(process.env.PORT || 8080, () =>
+  console.log(`server started at 8080 port`)
+);
