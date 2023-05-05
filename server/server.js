@@ -32,9 +32,7 @@ const getToken = (token) => {
 };
 
 app.use(
-  cors({
-    origin: "*",
-  })
+  cors()
 );
 app.use(bodyParser.json());
 app.use(express.json());
