@@ -33,7 +33,7 @@ const getToken = (token) => {
 
 app.use(
   cors({
-    origin: "https://my-notes-reactapp.netlify.app/:1",
+    origin: "*",
   })
 );
 app.use(bodyParser.json());
