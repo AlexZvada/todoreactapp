@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  const res = await fetch("https://my-notes-app-9ho3.onrender.com/notes", {
+  const res = await fetch("https://my-notes-app-9n4h.onrender.com/notes", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -29,7 +29,7 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
 export const fetchAddNote = createAsyncThunk(
   "note/fetchAddNote",
   async (data) => {
-    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
+    const res = await fetch("https://my-notes-app-9n4h.onrender.com/note", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -47,7 +47,7 @@ export const fetchAddNote = createAsyncThunk(
 export const fetchEditNote = createAsyncThunk(
   "note/fetchEditNote",
   async (data) => {
-    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
+    const res = await fetch("https://my-notes-app-9n4h.onrender.com/note", {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -66,7 +66,7 @@ export const fetchStatus = createAsyncThunk(
   "status/fetchStatus",
   async (id) => {
     const res = await fetch(
-      "https://my-notes-app-9ho3.onrender.com/note-status",
+      "https://my-notes-app-9n4h.onrender.com/note-status",
       {
         method: "PUt",
         headers: {
@@ -86,7 +86,7 @@ export const fetchStatus = createAsyncThunk(
 export const fetchDeleteNote = createAsyncThunk(
   "note/fetchDeletetNote",
   async (id) => {
-    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
+    const res = await fetch("https://my-notes-app-9n4h.onrender.com/note", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",

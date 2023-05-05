@@ -8,27 +8,26 @@ const initialState = {
     password: "",
   },
 };
-export const fetchVerify = createAsyncThunk(
-  "verify/fetchVerify",
-  async () => {
-    const res = await fetch("https://my-notes-app-9ho3.onrender.com/verify", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("user")}`,
-      },
-    });
-    if (res.ok) {
-      return "verify";
-    } else {
-      return Promise.reject("not verify");
-    }
+export const fetchVerify = createAsyncThunk("verify/fetchVerify", async () => {
+  const res = await fetch("https://my-notes-app-9ho3.onrender.com/verify", {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${sessionStorage.getItem("user")}`,
+    },
+  });
+  if (res.ok) {
+    return "verify";
+  } else {
+    return Promise.reject("not verify");
   }
-);
+});
 
 export const fetchLogin = createAsyncThunk("login/fetchLogin", async (data) => {
   const res = await fetch("https://my-notes-app-9ho3.onrender.com/login", {
     method: "POST",
+    mode: "cors",
     headers: {
       "Content-type": "application/json",
     },
