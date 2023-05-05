@@ -32,11 +32,15 @@ const getToken = (token) => {
 };
 app.use(
   cors({
-    origin: "https://my-notes-reactapp.netlify.app/",
+    origin: "https://my-notes-reactapp.netlify.app",
   })
 );
 app.use(bodyParser.json());
 app.use(express.json());
+
+app.get('/', (req, res)=>{
+  res.send("Hi there! Visit my vebsite - my-notes-reactapp.netlify.app");
+})
 
 app.get('/verify', async(req, res)=> {
     try {
