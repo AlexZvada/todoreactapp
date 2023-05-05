@@ -8,7 +8,7 @@ const initialState = {
 };
 
 export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
-  const res = await fetch("http://localhost:8080/notes", {
+  const res = await fetch("https://my-notes-app-9ho3.onrender.com/notes", {
     method: "GET",
     headers: {
       "Content-type": "application/json",
@@ -29,7 +29,7 @@ export const fetchNotes = createAsyncThunk("notes/fetchNotes", async () => {
 export const fetchAddNote = createAsyncThunk(
   "note/fetchAddNote",
   async (data) => {
-    const res = await fetch("http://localhost:8080/note", {
+    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -47,7 +47,7 @@ export const fetchAddNote = createAsyncThunk(
 export const fetchEditNote = createAsyncThunk(
   "note/fetchEditNote",
   async (data) => {
-    const res = await fetch("http://localhost:8080/note", {
+    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -65,14 +65,17 @@ export const fetchEditNote = createAsyncThunk(
 export const fetchStatus = createAsyncThunk(
   "status/fetchStatus",
   async (id) => {
-    const res = await fetch("http://localhost:8080/note-status", {
-      method: "PUt",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${sessionStorage.getItem("user")}`,
-      },
-      body: JSON.stringify({ id }),
-    });
+    const res = await fetch(
+      "https://my-notes-app-9ho3.onrender.com/note-status",
+      {
+        method: "PUt",
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("user")}`,
+        },
+        body: JSON.stringify({ id }),
+      }
+    );
     if (res.ok) {
       const note = await res.json();
       return note;
@@ -83,7 +86,7 @@ export const fetchStatus = createAsyncThunk(
 export const fetchDeleteNote = createAsyncThunk(
   "note/fetchDeletetNote",
   async (id) => {
-    const res = await fetch("http://localhost:8080/note", {
+    const res = await fetch("https://my-notes-app-9ho3.onrender.com/note", {
       method: "DELETE",
       headers: {
         "Content-type": "application/json",
