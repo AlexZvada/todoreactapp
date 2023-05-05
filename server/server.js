@@ -31,9 +31,7 @@ const getToken = (token) => {
   return jwt.verify(token, SECRET_KEY);
 };
 
-app.use(
-  cors()
-);
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.json());
 
