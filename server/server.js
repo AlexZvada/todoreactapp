@@ -32,7 +32,7 @@ const getToken = (token) => {
 
 app.use(
   cors({
-    origin: [process.env.CORS],
+    origin: [process.env.CORS, process.env.CORS1],
     optionsSuccessStatus: 200,
   })
 );
