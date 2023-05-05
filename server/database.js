@@ -5,7 +5,7 @@ import mysql from "mysql2";
 
 const pool = mysql
   .createPool({
-    host: process.env.DB_HOST,
+    host: "sql9.freemysqlhosting.net",
     user: process.env.DB_USER,
     database: process.env.DB,
     password: process.env.DB_PASSWORD,
