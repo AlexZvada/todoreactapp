@@ -9,7 +9,7 @@ const initialState = {
   },
 };
 export const fetchVerify = createAsyncThunk("verify/fetchVerify", async () => {
-  const res = await fetch("https://my-notes-app-9ho3.onrender.com/verify", {
+  const res = await fetch("https://my-notes-app-9n4h.onrender.com/verify", {
     method: "GET",
     mode: "cors",
     headers: {
@@ -25,7 +25,7 @@ export const fetchVerify = createAsyncThunk("verify/fetchVerify", async () => {
 });
 
 export const fetchLogin = createAsyncThunk("login/fetchLogin", async (data) => {
-  const res = await fetch("https://my-notes-app-9ho3.onrender.com/login", {
+  const res = await fetch("https://my-notes-app-9n4h.onrender.com/login", {
     method: "POST",
     mode: "cors",
     headers: {
