@@ -1,11 +1,13 @@
 import mysql from "mysql2";
+require("dotenv").config();
+
 
 const pool = mysql
   .createPool({
-    host: "sql9.freemysqlhosting.net",
-    user: "sql9616144",
-    database: "sql9616144",
-    password: "a71ljLRHAb",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    database: process.env.DB,
+    password: process.env.DB_PASSWORD,
   })
   .promise();
 

@@ -14,27 +14,26 @@ import {
 } from "./database.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { SECRET_KEY } from "./config.js";
+
+require("dotenv").config();
 
 const app = express();
-
-const PORT = 8080;
 
 const generateToken = (id) => {
   const payload = {
     userId: id,
   };
-  return jwt.sign(payload, SECRET_KEY, { expiresIn: "6h" });
+  return jwt.sign(payload, process.env.SECRET_KEY, { expiresIn: "6h" });
 };
 
 const getToken = (token) => {
-  return jwt.verify(token, SECRET_KEY);
+  return jwt.verify(token, process.env.SECRET_KEY);
 };
 
 app.use(
   cors({
-    origin: ["https://my-notes-reactapp.netlify.app", "https://my-notes-reactapp.netlify.app/"],
-    optionsSuccessStatus: 200
+    origin: process.env.CORS,
+    optionsSuccessStatus: 200,
   })
 );
 app.use(bodyParser.json());
@@ -197,4 +196,4 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`server started at 8080 port`));
+app.listen(process.env.PORT || 8080, () => console.log(`server started at 8080 port`));
