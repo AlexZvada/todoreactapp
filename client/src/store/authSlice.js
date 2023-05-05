@@ -11,7 +11,7 @@ const initialState = {
 export const fetchVerify = createAsyncThunk(
   "verify/fetchVerify",
   async () => {
-    const res = await fetch("http://localhost:8080/verify", {
+    const res = await fetch("https://my-notes-app-9ho3.onrender.com/verify", {
       method: "GET",
       headers: {
         "Content-type": "application/json",
@@ -27,7 +27,7 @@ export const fetchVerify = createAsyncThunk(
 );
 
 export const fetchLogin = createAsyncThunk("login/fetchLogin", async (data) => {
-  const res = await fetch("http://localhost:8080/login", {
+  const res = await fetch("https://my-notes-app-9ho3.onrender.com/login", {
     method: "POST",
     headers: {
       "Content-type": "application/json",

@@ -11,13 +11,16 @@ const initialState = {
 export const fetchRegistration = createAsyncThunk(
   "registration/fetchRegistration",
   async (data) => {
-    const res = await fetch("http://localhost:8080/registration", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
+    const res = await fetch(
+      "https://my-notes-app-9ho3.onrender.com/registration",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
     if (res.ok) {
       const message = await res.json();
       return message;
