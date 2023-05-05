@@ -18,6 +18,8 @@ import { SECRET_KEY } from "./config.js";
 
 const app = express();
 
+const PORT = 8080;
+
 const generateToken = (id) => {
   const payload = {
     userId: id,
@@ -189,4 +191,4 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
-app.listen(8080, () => console.log(`server started at 8080 port`));
+app.listen(PORT, () => console.log(`server started at 8080 port`));

@@ -2,10 +2,10 @@ import mysql from "mysql2";
 
 const pool = mysql
   .createPool({
-    host: "localhost",
-    user: "root",
-    database: "notes_project",
-    password: "",
+    host: "sql9.freemysqlhosting.net",
+    user: "sql9616144",
+    database: "sql9616144",
+    password: "a71ljLRHAb",
   })
   .promise();
 
