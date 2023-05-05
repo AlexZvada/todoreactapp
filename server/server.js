@@ -31,7 +31,12 @@ const getToken = (token) => {
   return jwt.verify(token, SECRET_KEY);
 };
 
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://my-notes-reactapp.netlify.app", "https://my-notes-reactapp.netlify.app/"],
+    optionsSuccessStatus: 200
+  })
+);
 app.use(bodyParser.json());
 app.use(express.json());
 
