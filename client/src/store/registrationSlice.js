@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   status: false,
+  isLoading: false,
   message: "",
   error: {
       message: null
@@ -12,7 +13,7 @@ export const fetchRegistration = createAsyncThunk(
   "registration/fetchRegistration",
   async (data) => {
     const res = await fetch(
-      "https://my-notes-app-9ho3.onrender.com/registration",
+      "https://my-notes-app-9n4h.onrender.com/registration",
       {
         method: "POST",
         headers: {
@@ -39,6 +40,9 @@ const registrationSlice = createSlice({
     builder.addCase(fetchRegistration.fulfilled, (state, action) => {
       state.status = true;
       state.message = action.payload;
+    });
+    builder.addCase(fetchRegistration.pending, (state) => {
+      state.isLoading = true;
     });
     builder.addCase(fetchRegistration.rejected, (state, action) => {
       state.error.message = action.error.message;

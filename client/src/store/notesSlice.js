@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isNotes: false,
+  isLoading: false,
   notes: [],
   toShow: [],
   error: null,
@@ -115,29 +116,52 @@ export const notesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchNotes.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchNotes.fulfilled, (state, action) => {
       if (action.payload) {
         state.isNotes = true;
+        state.isLoading = false;
         state.notes = action.payload;
         state.toShow = state.notes;
       }
     });
     builder.addCase(fetchNotes.rejected, (state, action) => {
       state.isNotes = false;
+      state.isLoading = false;
       state.error = action.error.message;
     });
+    builder.addCase(fetchAddNote.pending, (state)=>{
+      state.isLoading =true;
+    })
     builder.addCase(fetchAddNote.fulfilled, (state, action) => {
       state.isNotes = true;
+      state.isLoading = false;
       state.notes.push(action.payload);
-      state.toShow = state.notes
+      state.toShow = state.notes;
     });
+    builder.addCase(fetchAddNote.rejected, (state)=>{
+      state.isLoading = false;
+    })
+    builder.addCase(fetchEditNote.pending, (state)=> {
+      state.isLoading = true;
+    })
     builder.addCase(fetchEditNote.fulfilled, (state, action) => {
+      state.isLoading = false;
       const noteId = action.payload.id;
       const listId = state.notes.findIndex((note) => note.id === noteId);
       state.notes[listId] = action.payload;
       state.toShow = state.notes;
     });
+    builder.addCase(fetchEditNote.rejected, (state)=>{
+      state.isLoading = false;
+    });
+    builder.addCase(fetchDeleteNote.pending, (state)=> {
+      state.isLoading = true;
+    })
     builder.addCase(fetchDeleteNote.fulfilled, (state, action) => {
+      state.isLoading = false
       const noteId = Number(action.payload);
       state.notes = state.notes.filter((note) => note.id !== noteId);
       if (!state.notes[0]) {
@@ -145,12 +169,22 @@ export const notesSlice = createSlice({
       }
       state.toShow = state.notes;
     });
+    builder.addCase(fetchDeleteNote.rejected, (state)=>{
+      state.isLoading = false
+    });
+    builder.addCase(fetchStatus.pending, (state)=> {
+      state.isLoading =true
+    })
     builder.addCase(fetchStatus.fulfilled, (state, action) => {
+      state.isLoading = false;
       const noteId = action.payload.id;
       const listId = state.notes.findIndex((note) => note.id === noteId);
       state.notes[listId] = action.payload;
       state.toShow = state.notes;
     });
+    builder.addCase(fetchStatus.rejected, (state)=> {
+      state.isLoading = false
+    })
   },
 });
 

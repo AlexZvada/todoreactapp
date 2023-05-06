@@ -8,6 +8,7 @@ import {
   AddNoteModal,
   EditNoteModal,
   NotificationModal,
+  SpinerModal
 } from "./components";
 import noteBnt from "./images/btns/note-btn.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,6 +28,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginState = useSelector((store) => store.auth);
+  const fetchState = useSelector((store)=> store.notes)
   const singInState = useSelector((store) => store.singIn);
   const noteModalState = useSelector((store) => store.noteModal);
   const notificationState = useSelector((store) => store.notificationModal);
@@ -99,6 +101,16 @@ function App() {
       <EditNoteModal
         open={editModalState.isOpen}
         onClose={handleCloseEditModal}
+      />
+      <SpinerModal
+        open={
+          notificationState.isLoading ||
+          editModalState.isLoading ||
+          loginState.isLoading ||
+          singInState.isLoading ||
+          noteModalState.isLoading ||
+          fetchState.isLoading
+        }
       />
     </div>
   );

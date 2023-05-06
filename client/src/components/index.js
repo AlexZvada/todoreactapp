@@ -8,3 +8,4 @@ export { SingInModal } from "./modal/SingInModal";
 export { AddNoteModal } from "./modal/AddNoteModal";
 export { EditNoteModal } from "./modal/EditNoteModal";
 export { NotificationModal } from "./modal/NotificationModal";
+export {SpinerModal} from './modal/SpinerModal'

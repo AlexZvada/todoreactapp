@@ -1,0 +1,27 @@
+.container {
+//   max-width: 1224px;
+  margin: 0 auto;
+
+  @include pc-large {
+    max-width: 1224px;
+  }
+  @include pc-only{
+    max-width: 1024px;
+  }
+  @include tab {
+    max-width: 768px;
+  }
+  @include mob {
+    max-width: 640px;
+  }
+  @include mob-large {
+    max-width: 425px;
+  }
+  @include mob-mid {
+    max-width: 375px;
+  }
+}
+
+.end {
+  display: inline-block;
+}

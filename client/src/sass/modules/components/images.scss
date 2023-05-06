@@ -31,4 +31,12 @@
 .main-page-img{
   width: 600px;
   height: 225px;
+  @include tab{
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+  }
+  @include mob {
+    object-fit: contain;
+  }
 }

@@ -3,13 +3,14 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 const initialState = {
   isOpen: false,
   isAuth: false,
+  isLoading: false,
   authError: {
     username: "",
     password: "",
   },
 };
 export const fetchVerify = createAsyncThunk("verify/fetchVerify", async () => {
-  const res = await fetch("https://my-notes-app-9n4h.onrender.com/verify", {
+  const res = await fetch(`https://my-notes-app-9n4h.onrender.com/verify`, {
     method: "GET",
     mode: "cors",
     headers: {
@@ -62,13 +63,18 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchLogin.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.isAuth = true;
+      state.isLoading = false;
       state.isOpen = false;
       sessionStorage.setItem("user", action.payload);
     });
     builder.addCase(fetchLogin.rejected, (state, action) => {
       state.isAuth = false;
+      state.isLoading = false;
       state.isOpen = true;
       if (action.error.message === "User does not exist") {
         state.authError.username = action.error.message;
