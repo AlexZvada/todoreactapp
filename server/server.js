@@ -35,7 +35,7 @@ const getToken = (token) => {
 
 app.use(
   cors({
-    origin: [CORS, CORS_1],
+    origin: [process.env.CORS, process.env.CORS_1],
     optionsSuccessStatus: 200,
   })
 );
