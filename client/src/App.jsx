@@ -8,13 +8,14 @@ import {
   AddNoteModal,
   EditNoteModal,
   NotificationModal,
-  SpinerModal
+  SpinerModal,
 } from "./components";
 import noteBnt from "./images/btns/note-btn.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { closeLogin, fetchVerify } from "./store/authSlice";
 import { clearLoginInput, clearLoginError } from "./store/loginInputSlice";
 import { closeSingIn } from "./store/singInModalSlice";
+import { clean } from "./store/registrationSlice";
 import { clearInput, clearError } from "./store/singInFormInputSlice";
 import { openNoteModal, closeNoteModal } from "./store/noteModalSlice";
 import {
@@ -28,7 +29,7 @@ function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const loginState = useSelector((store) => store.auth);
-  const fetchState = useSelector((store)=> store.notes)
+  const fetchState = useSelector((store) => store.notes);
   const singInState = useSelector((store) => store.singIn);
   const noteModalState = useSelector((store) => store.noteModal);
   const notificationState = useSelector((store) => store.notificationModal);
@@ -54,6 +55,7 @@ function App() {
     dispatch(closeSingIn());
     dispatch(clearInput());
     dispatch(clearError());
+    dispatch(clean());
   };
   const handleCloseNote = () => {
     dispatch(closeNoteModal());

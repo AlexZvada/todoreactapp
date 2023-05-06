@@ -35,7 +35,11 @@ export const fetchRegistration = createAsyncThunk(
 const registrationSlice = createSlice({
   name: "registration",
   initialState,
-  reducers: {},
+  reducers: {
+    clean:(state)=> {
+      state.status = false
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchRegistration.fulfilled, (state, action) => {
       state.status = true;
@@ -50,5 +54,6 @@ const registrationSlice = createSlice({
   },
 });
 
+export const {clean} = registrationSlice.actions
 export default registrationSlice.reducer;
 
