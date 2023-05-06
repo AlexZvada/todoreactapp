@@ -52,6 +52,7 @@
   margin-bottom: 10px;
   @include mob{
     display: block;
+    text-align: center;
   }
 
   &:last-child {
