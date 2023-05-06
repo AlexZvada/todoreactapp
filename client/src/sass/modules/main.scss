@@ -50,6 +50,9 @@
   line-height: 21px;
   border-radius: 16px;
   margin-bottom: 10px;
+  @include mob{
+    display: block;
+  }
 
   &:last-child {
     margin-bottom: 0;
@@ -61,14 +64,12 @@
     font-weight: 600;
     font-size: 18px;
     line-height: 21px;
-    border-radius: 16px;
-    margin-bottom: 10px;
-  }
-
-  &-state {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 700;
+    @include mob{
+      display: block;
+      width: 90%;
+      margin: 0 auto;
+      margin-bottom: 15px;
+    }
   }
 
   &-title {
@@ -77,6 +78,12 @@
     width: 76%;
     font-size: 24px;
     font-weight: 700;
+    @include mob{
+      display: block;
+      width: 80%;
+      margin: 0 auto;
+      margin-bottom: 15px;
+    }
   }
 
   &-status {
@@ -85,6 +92,12 @@
     text-align: center;
     margin-right: 137px;
     color: #fc4040;
+    @include mob{
+      display: block;
+      width: 40%;
+      margin: 0 auto;
+      margin-bottom: 15px;
+    }
     &:hover {
       cursor: pointer;
     }

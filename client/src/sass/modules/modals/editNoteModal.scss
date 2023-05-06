@@ -2,5 +2,9 @@
     width: 600px;
     height: 380px;
     padding: 10px;
-    position: relative;;
+    position: relative;
+    @include mob {
+      width: 80%;
+      height: 350px;
+    }
 }

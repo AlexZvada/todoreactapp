@@ -32,7 +32,7 @@
     line-height: 43px;
   }
 
-  &-form-wrapper{
+  &-form-wrapper {
     margin-top: 65px;
   }
 }
@@ -40,6 +40,7 @@
 .btns-row--top {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 
 .login-btns {
@@ -56,42 +57,22 @@
 }
 
 .form-wrapper {
-    width: 500px;
-    margin: 0 auto;
-    font-size: 0;
+  width: 500px;
+  margin: 0 auto;
+  font-size: 0;
+  @include mob {
+    width: 80%;
+  }
 }
 
 .note {
-    &-input {
-        padding: 10px 12px;
-        font-size: 14px;
-        width: 230px;
+  &-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
 
-        &-wrapper {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 24px;
-
-        }
-
-        &-inner {
-            display: flex;
-        }
-    }
-
-    &-select {
-        width: 184px;
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 21px;
-        padding: 11px 12px;
-    }
-
-    &-search {
-        display: block;
-        width: 100%;
-        padding: 12px 10px;
-    }
-
+  &-inner {
+    display: flex;
+  }
 }
-
