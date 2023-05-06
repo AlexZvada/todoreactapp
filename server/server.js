@@ -1,4 +1,4 @@
-import * as dotenv from "dotenv";
+import dotenv from "dotenv";
 dotenv.config()
 import express from "express";
 import bodyParser from "body-parser";
@@ -17,8 +17,11 @@ import {
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-const app = express();
 
+
+
+const app = express();
+const PORT = process.env.PORT || 3000;
 const generateToken = (id) => {
   const payload = {
     userId: id,
@@ -33,8 +36,8 @@ const getToken = (token) => {
 app.use(
   cors({
     origin: [
-      "https://my-notes-reactapp.netlify.app/",
-      "https://my-notes-reactapp.netlify.app",
+      process.env.CORS,
+      process.env.CORS1,
     ],
     optionsSuccessStatus: 200,
   })
@@ -197,6 +200,4 @@ app.delete("/notes", async (req, res) => {
   }
 });
 
-app.listen(process.env.PORT || 8080, () =>
-  console.log(`server started at 8080 port`)
-);
+app.listen(PORT, () => console.log(`server started at 8080 port`));

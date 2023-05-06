@@ -2,10 +2,9 @@ import * as dotenv from "dotenv";
 dotenv.config();
 import mysql from "mysql2";
 
-
 const pool = mysql
   .createPool({
-    host: "sql9.freemysqlhosting.net",
+    host: process.env.DB_HOST,
     user: process.env.DB_USER,
     database: process.env.DB,
     password: process.env.DB_PASSWORD,
