@@ -37,7 +37,7 @@ app.use(
   cors({
     origin: [
       process.env.CORS,
-      process.env.CORS1,
+      process.env.CORS_1,
     ],
     optionsSuccessStatus: 200,
   })
