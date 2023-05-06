@@ -22,6 +22,7 @@
     font-size: 16px;
     padding: 11px 31px;
     border-radius: 30px;
+    
   }
 
   &:hover {
@@ -44,6 +45,9 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
+    @include mob{
+      margin-right: 10px;
+    }
     &:last-child {
       margin-right: 0;
       padding-right: 20px;

@@ -2,6 +2,9 @@
   background-color: #ebebeb;
   padding: 75px;
   min-height: 25vmax;
+  @include mob {
+    padding: 30px 0;
+  }
 
   &-page {
     display: flex;
@@ -9,7 +12,7 @@
     @include tab {
       display: block;
       padding: 20px;
-      text-align:  center;
+      text-align: center;
     }
 
     &-text {
@@ -50,9 +53,12 @@
   line-height: 21px;
   border-radius: 16px;
   margin-bottom: 10px;
-  @include mob{
+  @include mob {
     display: block;
     text-align: center;
+    margin: 0 auto 20px;
+    width: 90%;
+    padding: 10px 0;
   }
 
   &:last-child {
@@ -61,28 +67,29 @@
 
   &-text {
     display: inline-block;
-    width: 74%;
-    font-weight: 600;
     font-size: 18px;
+    font-weight: 600;
     line-height: 21px;
-    @include mob{
+    width: 70%;
+    word-break: break-all;
+    @include mob {
       display: block;
       width: 90%;
-      margin: 0 auto;
-      margin-bottom: 15px;
+      margin: 0 auto 15px;
     }
   }
 
   &-title {
     display: inline-block;
-    padding-left: 15px;
-    width: 76%;
     font-size: 24px;
     font-weight: 700;
-    @include mob{
+    padding-left: 15px;
+    width: 30%;
+    word-break: break-all;
+    @include mob {
       display: block;
-      width: 80%;
-      margin: 0 auto;
+      width: 100%;
+      padding: 0;
       margin-bottom: 15px;
     }
   }
@@ -91,9 +98,9 @@
     display: inline-block;
     width: 10%;
     text-align: center;
-    margin-right: 137px;
+    margin: 0 30px;
     color: #fc4040;
-    @include mob{
+    @include mob {
       display: block;
       width: 40%;
       margin: 0 auto;
@@ -112,12 +119,18 @@
     line-height: 21px;
     text-align: center;
     margin-bottom: 24px;
+    @include mob {
+      padding-top: 50px;
+    }
   }
   &-text {
     font-weight: 400;
     font-size: 20px;
     line-height: 25px;
     text-align: center;
+    @include mob {
+      padding-bottom: 50px;
+    }
   }
 }
 
