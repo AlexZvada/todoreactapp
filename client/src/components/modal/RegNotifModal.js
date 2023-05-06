@@ -4,7 +4,7 @@ import { customStyles } from "./CustomStyles";
 
 Modal.setAppElement("#root");
 
-export const RegistrationNotificModal = (onClose, open)=> {
+export const RegistrationNotificModal = ({onClose, open})=> {
       const {message} = useSelector((store) => store.reg);
 
     return (
@@ -16,7 +16,7 @@ export const RegistrationNotificModal = (onClose, open)=> {
       >
         <div>
           {message}{" "}
-          <button onClick={onClose} className="btn">
+          <button onClick={onClose} className="btn btn-apply end">
             oK
           </button>
         </div>

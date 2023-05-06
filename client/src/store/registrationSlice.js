@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  isOpen: false,
   status: false,
   isLoading: false,
   message: "",
@@ -36,24 +37,37 @@ const registrationSlice = createSlice({
   name: "registration",
   initialState,
   reducers: {
-    clean:(state)=> {
-      state.status = false
-    }
+    openSingIn: (store) => {
+      store.isOpen = true;
+    },
+    closeSingIn: (store) => {
+      store.isOpen = false;
+    },
+    clean: (state) => {
+      state.status = false;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchRegistration.fulfilled, (state, action) => {
+      state.isOpen = false;
       state.status = true;
+      state.isLoading = false;
       state.message = action.payload;
     });
     builder.addCase(fetchRegistration.pending, (state) => {
       state.isLoading = true;
+      state.isOpen = true;
+      state.status = false
     });
     builder.addCase(fetchRegistration.rejected, (state, action) => {
+      state.status = false;
+      state.isLoading = false;
+      state.isOpen = true;
       state.error.message = action.error.message;
     });
   },
 });
 
-export const {clean} = registrationSlice.actions
+export const {clean, closeSingIn, openSingIn} = registrationSlice.actions
 export default registrationSlice.reducer;
 

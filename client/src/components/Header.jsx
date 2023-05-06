@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Layout, HeaderButton } from "./";
 import { logout } from "../store/authSlice";
 import { openLogin } from "../store/authSlice";
-import { openSingIn } from "../store/singInModalSlice";
+import { openSingIn } from "../store/registrationSlice";
 import noteBnt from "../images/btns/note-btn.svg";
 import login from "../images/btns/login.svg";
 import arrow from "../images/btns/arrow_right.svg";

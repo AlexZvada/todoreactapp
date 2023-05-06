@@ -16,7 +16,7 @@ import noteBnt from "./images/btns/note-btn.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { closeLogin, fetchVerify } from "./store/authSlice";
 import { clearLoginInput, clearLoginError } from "./store/loginInputSlice";
-import { closeSingIn } from "./store/singInModalSlice";
+import { closeSingIn } from "./store/registrationSlice";
 import { clean } from "./store/registrationSlice";
 import { clearInput, clearError } from "./store/singInFormInputSlice";
 import { openNoteModal, closeNoteModal } from "./store/noteModalSlice";
@@ -32,11 +32,10 @@ function App() {
   const navigate = useNavigate();
   const loginState = useSelector((store) => store.auth);
   const fetchState = useSelector((store) => store.notes);
-  const singInState = useSelector((store) => store.singIn);
   const noteModalState = useSelector((store) => store.noteModal);
   const notificationState = useSelector((store) => store.notificationModal);
   const editModalState = useSelector((store) => store.editModal);
-
+  const registrationState = useSelector((store)=>store.reg)
   const handelOpenNoteModal = () => {
     if (loginState.isAuth) {
       dispatch(openNoteModal());
@@ -95,7 +94,10 @@ function App() {
         </Layout>
       </footer>
       <LoginModal open={loginState.isOpen} onClose={handleCloseLogin} />
-      <SingInModal open={singInState.isOpen} onClose={handleCloseSingIn} />
+      <SingInModal
+        open={registrationState.isOpen}
+        onClose={handleCloseSingIn}
+      />
       <AddNoteModal open={noteModalState.isOpen} onClose={handleCloseNote} />
       <NotificationModal
         open={notificationState.isOpen}
@@ -110,13 +112,13 @@ function App() {
           notificationState.isLoading ||
           editModalState.isLoading ||
           loginState.isLoading ||
-          singInState.isLoading ||
+          registrationState.isLoading ||
           noteModalState.isLoading ||
           fetchState.isLoading
         }
       />
       <RegistrationNotificModal
-        open={singInState.status}
+        open={registrationState.status}
         onClose={() => dispatch(clean())}
       />
     </div>

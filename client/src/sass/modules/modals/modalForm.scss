@@ -1,6 +1,6 @@
 @import "./singInModal.scss";
 @import "./loginModal.scss";
-@import './notificationModal.scss';
+@import "./notificationModal.scss";
 
 .form {
   &-title {
@@ -13,9 +13,9 @@
 .input-wrapper {
   margin-bottom: 30px;
   height: 50px;
-  @include mob{
-    margin-bottom: 15px;
+  @include mob {
     height: 35px;
+    margin-bottom: 50px;
   }
 }
 

@@ -1,14 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRegistration } from "../store/registrationSlice";
-import {
-  addInput,
-  addError,
-} from "../store/singInFormInputSlice";
+import { addInput, addError } from "../store/singInFormInputSlice";
 import { Button } from "./Button";
 
 export const SingInForm = ({ onClose, close }) => {
   const dispatch = useDispatch();
-  const { error} = useSelector((store) => store.reg);
+  const { error } = useSelector((store) => store.reg);
   const { input, inputError } = useSelector((store) => store.singInInput);
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,79 +109,77 @@ export const SingInForm = ({ onClose, close }) => {
   };
   return (
     <div className="modal-registration">
-        <form onSubmit={singInRequest} className="form-registration">
-          <h1 className="form-title">Registration</h1>
-          <span className="form-registration-close" onClick={onClose}>
-            <img src={close} alt="cancel"></img>
-          </span>
-          <div className="input-wrapper">
-            <label>
-              <p className="modal-text">Name:</p>
-              <input
-                type="text"
-                name="username"
-                required
-                value={input.username}
-                onChange={onInputChange}
-                onBlur={validateInput}
-              />
-              {inputError.username && (
-                <span className="err">{inputError.username}</span>
-              )}
-              {error.message && <span>{error.message}</span>}
-            </label>
-          </div>
-
-          <div className="input-wrapper">
-            <label>
-              <p className="modal-text">Email:</p>
-              <input
-                type="email"
-                required
-                name="email"
-                value={input.email}
-                onChange={onInputChange}
-                onBlur={validateInput}
-              />
-            </label>
-            {inputError.email && (
-              <span className="err">{inputError.email}</span>
+      <form onSubmit={singInRequest} className="form-registration">
+        <h1 className="form-title">Registration</h1>
+        <span className="form-registration-close" onClick={onClose}>
+          <img src={close} alt="cancel"></img>
+        </span>
+        <div className="input-wrapper">
+          <label>
+            <p className="modal-text">Name:</p>
+            <input
+              type="text"
+              name="username"
+              required
+              value={input.username}
+              onChange={onInputChange}
+              onBlur={validateInput}
+            />
+            {inputError.username && (
+              <span className="err">{inputError.username}</span>
             )}
-          </div>
-          <div className="input-wrapper">
-            <label>
-              <p className="login-label-text">Password:</p>
-              <input
-                required
-                type="password"
-                name="password"
-                value={input.password}
-                onChange={onInputChange}
-                onBlur={validateInput}
-              />
-              {inputError.password && (
-                <span className="err">{inputError.password}</span>
-              )}
-            </label>
-          </div>
-          <div className="input-wrapper">
-            <label>
-              <p className="login-label-text">Confirm password:</p>
-              <input
-                required
-                type="password"
-                name="confirmPassword"
-                value={input.confirmPassword}
-                onChange={onInputChange}
-                onBlur={validateInput}
-              />
-              {inputError.confirmPassword && (
-                <span className="err">{inputError.confirmPassword}</span>
-              )}
-            </label>
-          </div>
-          <Button className="btn form-btn">Registration</Button>
-        </form>
+            {error.message && <span>{error.message}</span>}
+          </label>
+        </div>
+
+        <div className="input-wrapper">
+          <label>
+            <p className="modal-text">Email:</p>
+            <input
+              type="email"
+              required
+              name="email"
+              value={input.email}
+              onChange={onInputChange}
+              onBlur={validateInput}
+            />
+          </label>
+          {inputError.email && <span className="err">{inputError.email}</span>}
+        </div>
+        <div className="input-wrapper">
+          <label>
+            <p className="login-label-text">Password:</p>
+            <input
+              required
+              type="password"
+              name="password"
+              value={input.password}
+              onChange={onInputChange}
+              onBlur={validateInput}
+            />
+            {inputError.password && (
+              <span className="err">{inputError.password}</span>
+            )}
+          </label>
+        </div>
+        <div className="input-wrapper">
+          <label>
+            <p className="login-label-text">Confirm password:</p>
+            <input
+              required
+              type="password"
+              name="confirmPassword"
+              value={input.confirmPassword}
+              onChange={onInputChange}
+              onBlur={validateInput}
+            />
+            {inputError.confirmPassword && (
+              <span className="err">{inputError.confirmPassword}</span>
+            )}
+          </label>
+        </div>
+        <Button className="btn form-btn">Registration</Button>
+      </form>
     </div>
   );
 };

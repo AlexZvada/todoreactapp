@@ -1,6 +1,5 @@
 import {configureStore} from '@reduxjs/toolkit';
 import authReduser from './authSlice';
-import singInReducer from './singInModalSlice';
 import noteModalReduser from './noteModalSlice';
 import notificationModalReducer from './notificationModalSlice';
 import registrationReduser from './registrationSlice';
@@ -13,7 +12,6 @@ import editReduser from './editNoteModalSlice'
 export const store = configureStore({
   reducer: {
     auth: authReduser,
-    singIn: singInReducer,
     noteModal: noteModalReduser,
     editModal: editReduser,
     notificationModal: notificationModalReducer,
