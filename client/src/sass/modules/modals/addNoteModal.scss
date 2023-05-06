@@ -10,8 +10,8 @@
     padding: 10px;
     position: relative;
     @include mob {
-      width: 80%;
-      height: 350px;
+      width: 350px;
+      height: 380px;
     }
   }
 }
@@ -20,6 +20,9 @@
   position: absolute;
   left: 575px;
   top: 10px;
+  @include mob {
+    left: 340px;
+  }
 }
 
 textarea {
@@ -36,5 +39,8 @@ textarea {
       top: 12px;
       &:hover {
         cursor: pointer;
+      }
+      @include mob{
+        left: 340px;
       }
 }
