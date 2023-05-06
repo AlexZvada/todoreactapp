@@ -35,10 +35,7 @@ const getToken = (token) => {
 
 app.use(
   cors({
-    origin: [
-      "https://my-notes-reactapp.netlify.app",
-      "https://my-notes-reactapp.netlify.app/",
-    ],
+    origin: [CORS, CORS_1],
     optionsSuccessStatus: 200,
   })
 );
