@@ -9,6 +9,8 @@ import {
   EditNoteModal,
   NotificationModal,
   SpinerModal,
+  RegistrationNotificModal
+
 } from "./components";
 import noteBnt from "./images/btns/note-btn.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -55,7 +57,6 @@ function App() {
     dispatch(closeSingIn());
     dispatch(clearInput());
     dispatch(clearError());
-    dispatch(clean());
   };
   const handleCloseNote = () => {
     dispatch(closeNoteModal());
@@ -113,6 +114,10 @@ function App() {
           noteModalState.isLoading ||
           fetchState.isLoading
         }
+      />
+      <RegistrationNotificModal
+        open={singInState.status}
+        onClose={() => dispatch(clean())}
       />
     </div>
   );

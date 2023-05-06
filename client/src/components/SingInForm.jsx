@@ -8,7 +8,7 @@ import { Button } from "./Button";
 
 export const SingInForm = ({ onClose, close }) => {
   const dispatch = useDispatch();
-  const { error, message, status } = useSelector((store) => store.reg);
+  const { error} = useSelector((store) => store.reg);
   const { input, inputError } = useSelector((store) => store.singInInput);
   const onInputChange = (e) => {
     const { name, value } = e.target;
@@ -112,11 +112,6 @@ export const SingInForm = ({ onClose, close }) => {
   };
   return (
     <div className="modal-registration">
-      {status ? (
-        <div>
-          {message} <button onClick={onClose}>oK</button>
-        </div>
-      ) : (
         <form onSubmit={singInRequest} className="form-registration">
           <h1 className="form-title">Registration</h1>
           <span className="form-registration-close" onClick={onClose}>
@@ -190,7 +185,6 @@ export const SingInForm = ({ onClose, close }) => {
           </div>
           <Button className="btn form-btn">Registration</Button>
         </form>
-      )}
     </div>
   );
 };
